@@ -1,4 +1,6 @@
 #include "hash.h"
+#include "sha256.h"
+#include "sha3.h"
 #include <iostream>
 #include <vector>
 
@@ -42,23 +44,44 @@ keccak_256
 
 int main(int argc, char *argv[])
 {
-	std::vector<string> test_vector = {"", 
-		"a", 
-		"abc", 
-		"message digest", 
-		"abcdefghijklmnopqrstuvwxyz", 
+	std::vector<std::string> input = { "",
+		"a",
+		"abc",
+		"message digest",
+		"abcdefghijklmnopqrstuvwxyz",
 		"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
-		"12345678901234567890123456789012345678901234567890123456789012345678901234567890", 
+		"12345678901234567890123456789012345678901234567890123456789012345678901234567890",
 		"The quick brown fox jumps over the lazy dog"
 	};
 
-	string output;
+	std::string output;
 
-	for (auto it = test_vector.begin(); it<test_vector.end(); it++){
-		output=hash(*it);
+	for (auto it = input.begin(); it<input.end(); it++) {
+		output = sha3_256(*it);
 
-		cout <<  "hashName_V" << version() << "()" << "('"<< *it << "'):" << output << endl;
+		std::cout << "sha3_256('" << *it << "'):" << output << std::endl;
 
 	}
+
+	std::vector<std::string> input2 = { "",
+
+		"a",
+		"abc",
+		"message digest",
+		"abcdefghijklmnopqrstuvwxyz",
+		"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+		"12345678901234567890123456789012345678901234567890123456789012345678901234567890",
+		"The quick brown fox jumps over the lazy dog"
+	};
+
+	string output2;
+
+	for (auto it = input2.begin(); it<input2.end(); it++) {
+		output2 = sha256(*it);
+
+		cout << "sha256('" << *it << "'):" << output2 << endl;
+
+	}
+	system("PAUSE");
 }
 
